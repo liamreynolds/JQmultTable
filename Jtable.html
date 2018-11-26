@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--FILE: http://weblab.cs.uml.edu/~lreynold/index.html
+91.61 GUI Programming I
+Assignment 7: Creating an Interactive Dynamic Table
+Liam Reynolds, University of MA, Lowell. CS.
+liam_reynolds@student.uml.edu
+Copyright(c) 25 November 2018. All rights reserved.-->
+<html lang="en">
+	<head>
+			<meta charset="utf-8">
+			<title>Test for jQuery validate() plugin</title>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+				integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+				crossorigin="anonymous">
+			<link rel = "stylesheet" type = "text/css" href= "table.css">
+			<script src ="https://code.jquery.com/jquery-3.3.1.js"></script>
+			<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+			<script src ="mult.js"> </script>
+			<script>
+					$().ready(function(){
+						//submit form if entered parameters pass requirements
+							$("#multForm").submit(function(e){
+								e.preventDefault();
+							}).validate({
+								//validate each input element using jquery validation rules
+									rules: {
+											loY: {
+												required: true,
+												digits: true
+											},
+											upY: {
+												required: true,
+												digits: true
+											},
+											loX: {
+												required: true,
+												digits: true
+											},
+											upX: {
+												required: true,
+												digits: true
+											}
+									},
+									//print formatted, specified error messages for each input element
+									messages: {
+										loY: {
+											required: "A lower vertical bound is required.",
+											digits: "Please enter a valid integer."
+										},
+										upY: {
+											required: "An upper vertical bound is required.",
+											digits: "Please enter a valid integer."
+										},
+										loX: {
+											required: "A lower horizontal bound is required.",
+											digits: "Please enter a valid integer."
+										},
+										upX: {
+											required: "An upper horizontal bound is required.",
+											digits: "Please enter a valid integer."
+										}
+									},
+									submitHandler: function(form){
+										//if form passes validation, create new table using specified values
+										eraseTable();
+										getValues();
+										return false;
+									}
+								})
+							});
+				</script>
+	</head>
+	<body>
+			<div class = "container">
+				<div class = "side">
+					<table id = "multTable"> <!-- table is created without content to be added to dynamically-->
+					</table>
+				</div>
+				<div class = "mult">
+					<h1> mult. table </h1>
+					<form id = "multForm" action = "" onsubmit="return false;">  <!-- bootstrap form is used for table input-->
+						<label> vertical start :</label> <!-- table bounds are described internally as axis values -->
+							<input id = "loY" type = "number" class = "form-control"
+								name = "loY" placeholder = "lesser bound"/> <!-- first input space expects lower bound, will create error otherwise -->
+								<br>
+						<label> vertical end :</label>
+							<input id = "upY" type = "number" class = "form-control"
+								name = "upY" placeholder = "greater bound"/>
+					<hr id = "formLine">
+						<label> horizontal start :</label>
+							<input id = "loX" type = "number" class = "form-control"
+								name = "loX" placeholder = "lesser bound"/>
+								<br>
+						<label> horizontal end :</label>
+							<input id = "upX" type = "number" class = "form-control"
+								name = "upX" placeholder = "greater bound"/>
+								<br>
+						<input id = "subForm" type = "submit" value = "Submit"/>
+					</form>
+					<br>
+					<hr id = endDivide>
+				</div>
+			</div>
+	</body>
+</html>
